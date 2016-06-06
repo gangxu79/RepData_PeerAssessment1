@@ -38,6 +38,7 @@ library(ggplot2)
 unzip("activity.zip", exdir = "./data")
 activity <- read.csv("./data/activity.csv", na.strings = "NA", colClasses = c("integer", "character", "integer"))
 ```
+
 2. Process/transform the data (if necessary) into a format suitable for your analysis
 
 ```r
@@ -73,6 +74,7 @@ statistics <- activity %>%
     data.frame()
 statistics$date <- as.Date(statistics$date, "%Y-%m-%d")
 ```
+
 2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
 
 ```r
@@ -81,6 +83,7 @@ g + geom_histogram(bins = 50) + labs(x = "Total steps", y = "Days")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 3. Calculate and report the mean and median of the total number of steps taken per day
 
 ```r
@@ -109,6 +112,7 @@ g + geom_line() + labs(x = "Time interval", y = "Averaged steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```r
@@ -136,6 +140,7 @@ sprintf("The number of missing values is %d out of %d, and the ratio of missing 
 ```
 ## [1] "The number of missing values is 2304 out of 17568, and the ratio of missing value is 13.11%."
 ```
+
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
@@ -146,6 +151,7 @@ for (i in naindex) {
     corrected[i,"steps"] <- averaged[which(averaged$interval == corrected$interval[i]),"avgsteps"]
 }
 ```
+
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 ```r
@@ -181,6 +187,7 @@ The data was separated by weekday or weekend. It turned out that the overall act
 corrected$weekday <- weekdays(corrected$date)
 corrected$weekday <- factor(corrected$weekday %in% c("Saturday", "Sunday"), labels = c("weekday", "weekend"))
 ```
+
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
 ```r
@@ -202,3 +209,4 @@ g + geom_line(color = "blue") + facet_grid(weekday~.) + labs(x = "interval", y =
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+
